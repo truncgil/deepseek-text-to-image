@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deepseek Image Generator</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Generator</h1>
+        <textarea id="prompt" placeholder="Enter your prompt..."></textarea>
+        <button onclick="generateImage()">Generate</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function generateImage() {
+            const prompt = document.getElementById('prompt').value;
+            const response = await fetch('http://localhost:8000/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    prompt: prompt
+                })
+            });
+
+            const data = await response.json();
+            const img = document.createElement('img');
+            img.src = `data:image/png;base64,${data.image}`;
+            document.getElementById('result').appendChild(img);
+        }
+    </script>
+</body>
+</html> 
