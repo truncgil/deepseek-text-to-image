@@ -8,7 +8,11 @@ from PIL import Image
 app = FastAPI()
 
 # Modeli önceden yükle
-image_generator = pipeline("text-to-image", model="deepseek-ai/deepseek-moe-16b-base")
+image_generator = pipeline(
+    "text-to-image", 
+    model="deepseek-ai/deepseek-moe-16b-base",
+    trust_remote_code=True
+)
 
 class GenerationRequest(BaseModel):
     prompt: str
